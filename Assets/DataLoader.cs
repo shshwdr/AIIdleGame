@@ -46,6 +46,23 @@ public class DataLoader : Singleton<DataLoader>
         }
     }
 
+    public ResourceInfo getResourceInfo(string name)
+    {
+        if (!resourceDict.ContainsKey(name))
+        {
+            Debug.LogError("no resource "+name);
+        }
+        return resourceDict[name];
+    }
+    public ProcessInfo getProcessInfo(string name)
+    {
+        if (!processDict.ContainsKey(name))
+        {
+            Debug.LogError("no process "+name);
+        }
+        return processDict[name];
+    }
+
     // Update is called once per frame
     void Update()
     {

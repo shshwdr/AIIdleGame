@@ -12,7 +12,7 @@ public class ResourceMenu : MonoBehaviour
         foreach (var pair in ResourceManager.Instance.resourceDatas)
         {
             var go = Instantiate(cellPrefab,parent);
-            //go.GetComponent()
+            go.GetComponent<ResouceCell>().updateLabels(pair.Key,pair.Value);
         }
     }
 
