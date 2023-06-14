@@ -626,7 +626,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &514939554
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1226,6 +1226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 985815580}
   cellPrefab: {fileID: 5733606753523088211, guid: c908b3126504c2746ae101ac376b494f, type: 3}
+  explainOb: {fileID: 514939553}
 --- !u!1 &1851530046
 GameObject:
   m_ObjectHideFlags: 0

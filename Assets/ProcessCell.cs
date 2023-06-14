@@ -43,6 +43,19 @@ public class ProcessCell : MonoBehaviour
         });
 
         eventTrigger.triggers.Add(pointerExitEntry);
+        
+        processButton.onClick.AddListener(() =>
+        {
+            if (info.isClick == 1)
+            {
+                //click to get resource
+                ResourceManager.Instance.addResource(info.result);
+            }
+            else
+            {
+                
+            }
+        });
     }
     public void update()
     {

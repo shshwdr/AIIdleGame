@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Pool;
 using UnityEngine;
 
 public class ResourceData
@@ -20,6 +22,38 @@ public class ResourceManager : Singleton<ResourceManager>
             data.currentMax = resourcePair.Value.originalMax;
             resourceDatas[resourcePair.Key] = data;
         }
+    }
+
+    public ResourceData getResourceData(string name)
+    {
+        if (resourceDatas.ContainsKey(name))
+        {
+            return resourceDatas[name];
+        }
+        Debug.LogError("no resource data "+name);
+        return null;
+    }
+    public void addResource(Dictionary<string, int> result)
+    {
+        foreach (var pair in result)
+        {
+            if (resourceDatas.ContainsKey(pair.Key))
+            {
+                resourceDatas[pair.Key].currentAmount += pair.Value;
+                resourceDatas[pair.Key].currentAmount = Math.Min(resourceDatas[pair.Key].currentAmount,
+                    resourceDatas[pair.Key].currentMax);
+                updateResource();
+            }
+            else
+            {
+                Debug.LogError("no resource to add "+pair.Key);
+            }
+        }
+    }
+
+    void updateResource()
+    {
+        EventPool.Trigger("updateResource");
     }
     // Start is called before the first frame update
     void Start()
