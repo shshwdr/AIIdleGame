@@ -33,6 +33,27 @@ public class ResourceManager : Singleton<ResourceManager>
         Debug.LogError("no resource data "+name);
         return null;
     }
+
+    public bool hasResource(Dictionary<string, int> result)
+    {
+       
+        foreach (var pair in result)
+        {
+            if (resourceDatas.ContainsKey(pair.Key))
+            {
+                if (resourceDatas[pair.Key].currentAmount < pair.Value)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                Debug.LogError("no resource to add "+pair.Key);
+            }
+        }
+
+        return true;
+    }
     public void addResource(Dictionary<string, int> result)
     {
         foreach (var pair in result)

@@ -11,6 +11,17 @@ public class ProcessManager : Singleton<ProcessManager>
     public Dictionary<string, ProcessData> ProcessDatas;
 
     public ProcessInfo clickProcess;
+
+    public ProcessData getProcesData(string name)
+    {
+        
+        if (ProcessDatas.ContainsKey(name))
+        {
+            return ProcessDatas[name];
+        }
+        Debug.LogError("no process data "+name);
+        return null;
+    }
     // Start is called before the first frame update
     public void Init()
     {

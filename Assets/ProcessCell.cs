@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Pool;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,7 +11,7 @@ using Button = UnityEngine.UI.Button;
 public class ProcessCell : MonoBehaviour
 {
     public Button processButton;
-    public Button explainButton;
+    public Button extraButton;
     private string name;
     private ProcessInfo info;
     private bool isClickingButton = false;
@@ -28,7 +30,25 @@ public class ProcessCell : MonoBehaviour
         // Define what actions to take when event is triggered
         pointerEnterEntry.callback.AddListener((eventData) => {
             menu.explainOb.SetActive(true);
-            menu.explainOb.GetComponentInChildren<TMP_Text>().text = info.desc;
+            var desc = info.desc;
+            var data = ProcessManager.Instance.getProcesData(name);
+            if (info.isClick == 1)
+            {
+                
+                desc += "\nClick to farm.";
+            }else if (data.isUnlocked)
+            {
+                string dictAsString = string.Join(", ", info.upgradeCost.Select(kv =>  kv.Value.ToString().ToArray()+" "+kv.Key));
+
+                desc += "\nupgrade cost: " +  dictAsString;
+            }
+            else
+            {
+                string dictAsString = string.Join(", ", info.upgradeCost.Select(kv =>  kv.Value.ToString().ToArray()+" "+kv.Key));
+
+                desc += "\nunlock cost: " + dictAsString;
+            }
+            menu.explainOb.GetComponentInChildren<TMP_Text>().text = desc;
            // Debug.Log(info.desc);
         });
 
@@ -56,8 +76,43 @@ public class ProcessCell : MonoBehaviour
                 
             }
         });
+        
+        EventPool.OptIn("updateResource",updateResources);
+        updateResources();
     }
-    public void update()
+
+    bool isClickable()
+    {
+        if (info.isClick == 1)
+        {
+            return true;
+        }
+        
+        var data = ProcessManager.Instance.getProcesData(name);
+        if (data.isUnlocked)
+        {
+            if (ResourceManager.Instance.hasResource(info.upgradeCost))
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (ResourceManager.Instance.hasResource(info.unlockCost))
+            {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+    
+    public void updateResources()
+    {
+        processButton.interactable = isClickable();
+    }
+    public void updateLevels()
     {
         
     }
