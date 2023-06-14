@@ -5,6 +5,7 @@ public class ProcessData
 {
     public int level = -1;
     public bool isUnlocked => level>=0;
+    public bool isAtMaxLevel => level >= 10;
 }
 public class ProcessManager : Singleton<ProcessManager>
 {
@@ -12,6 +13,10 @@ public class ProcessManager : Singleton<ProcessManager>
 
     public ProcessInfo clickProcess;
 
+    public void levelUp(string name)
+    {
+        getProcesData(name).level += 1;
+    }
     public ProcessData getProcesData(string name)
     {
         

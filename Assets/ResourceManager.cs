@@ -54,6 +54,40 @@ public class ResourceManager : Singleton<ResourceManager>
 
         return true;
     }
+    
+    public void ConsumeResource(Dictionary<string, int> result)
+    {
+        foreach (var pair in result)
+        {
+            if (resourceDatas.ContainsKey(pair.Key))
+            {
+                if (resourceDatas[pair.Key].currentAmount < pair.Value)
+                {
+                    Debug.LogError("how");
+                }
+                resourceDatas[pair.Key].currentAmount -= pair.Value;
+                updateResource();
+            }
+            else
+            {
+                Debug.LogError("no resource to add "+pair.Key);
+            }
+        }
+    }
+    public void AddRate(Dictionary<string, int> result)
+    {
+        foreach (var pair in result)
+        {
+            if (resourceDatas.ContainsKey(pair.Key))
+            {
+                resourceDatas[pair.Key].ratePerSecond += pair.Value;
+            }
+            else
+            {
+                Debug.LogError("no resource to add "+pair.Key);
+            }
+        }
+    }
     public void addResource(Dictionary<string, int> result)
     {
         foreach (var pair in result)
@@ -82,9 +116,27 @@ public class ResourceManager : Singleton<ResourceManager>
         
     }
 
+    private float currentTime;
+
+    private float harvestTime = 1;
     // Update is called once per frame
     void Update()
     {
-        
+        currentTime += Time.deltaTime;
+        if (currentTime >= harvestTime)
+        {
+            currentTime -= harvestTime;
+            foreach (var pair in resourceDatas)
+            {
+                if (pair.Value.ratePerSecond > 0)
+                {
+                    pair.Value.currentAmount += pair.Value.ratePerSecond;
+                    
+                    resourceDatas[pair.Key].currentAmount = Math.Min(resourceDatas[pair.Key].currentAmount,
+                        resourceDatas[pair.Key].currentMax);
+                    updateResource();
+                }
+            }
+        }
     }
 }

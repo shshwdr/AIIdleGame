@@ -14,6 +14,7 @@ public class ProcessCell : MonoBehaviour
     public Button extraButton;
     private string name;
     private ProcessInfo info;
+    private ProcessData data;
     private bool isClickingButton = false;
     private ProcessMenu menu;
     public void init(string n,ProcessMenu m)
@@ -21,6 +22,7 @@ public class ProcessCell : MonoBehaviour
         name = n;
         menu = m;
         info = DataLoader.Instance.getProcessInfo(name);
+        data = ProcessManager.Instance.getProcesData(name);
         processButton.GetComponentInChildren<TMP_Text>().text = info.displayName;
         
         EventTrigger eventTrigger = processButton.gameObject.AddComponent<EventTrigger>();
@@ -30,25 +32,7 @@ public class ProcessCell : MonoBehaviour
         // Define what actions to take when event is triggered
         pointerEnterEntry.callback.AddListener((eventData) => {
             menu.explainOb.SetActive(true);
-            var desc = info.desc;
-            var data = ProcessManager.Instance.getProcesData(name);
-            if (info.isClick == 1)
-            {
-                
-                desc += "\nClick to farm.";
-            }else if (data.isUnlocked)
-            {
-                string dictAsString = string.Join(", ", info.upgradeCost.Select(kv =>  kv.Value.ToString().ToArray()+" "+kv.Key));
-
-                desc += "\nupgrade cost: " +  dictAsString;
-            }
-            else
-            {
-                string dictAsString = string.Join(", ", info.upgradeCost.Select(kv =>  kv.Value.ToString().ToArray()+" "+kv.Key));
-
-                desc += "\nunlock cost: " + dictAsString;
-            }
-            menu.explainOb.GetComponentInChildren<TMP_Text>().text = desc;
+            updateDetailText();
            // Debug.Log(info.desc);
         });
 
@@ -73,12 +57,57 @@ public class ProcessCell : MonoBehaviour
             }
             else
             {
+                if (data.isUnlocked)
+                {
+                    
+                    ResourceManager.Instance.ConsumeResource(info.GetUpgradeCost(data.level));
+                }
+                else
+                {
+                    
+                    ResourceManager.Instance.ConsumeResource(info.unlockCost);
+                }
+                
+                ProcessManager.Instance.levelUp(name);
+                ResourceManager.Instance.AddRate(info.result);
+                updateLevels();
                 
             }
         });
         
         EventPool.OptIn("updateResource",updateResources);
         updateResources();
+        updateLevels();
+    }
+
+    void updateDetailText()
+    {
+        
+        var desc = info.desc;
+        if (info.isClick == 1)
+        {
+                
+            // desc += "\nClick to farm.";
+            var dictAsString = string.Join(", ", info.result.Select(kv =>  kv.Value.ToString()+" "+kv.Key).ToArray());
+
+            desc += "\nEach Click benefit: " +  dictAsString;
+        }else if (data.isUnlocked)
+        {
+            string dictAsString = string.Join(", ", info.GetUpgradeCost(data.level).Select(kv =>  kv.Value.ToString()+" "+kv.Key).ToArray());
+
+            desc += "\nUpgrade cost: " +  dictAsString;
+                
+            dictAsString = string.Join(", ", info.result.Select(kv =>  kv.Value.ToString()+" "+kv.Key).ToArray());
+
+            desc += "\nEach level benefit: " +  dictAsString;
+        }
+        else
+        {
+            string dictAsString = string.Join(", ", info.unlockCost.Select(kv =>  kv.Value.ToString()+" "+kv.Key).ToArray());
+
+            desc += "\nUnlock cost: " + dictAsString;
+        }
+        menu.explainOb.GetComponentInChildren<TMP_Text>().text = desc;
     }
 
     bool isClickable()
@@ -88,10 +117,18 @@ public class ProcessCell : MonoBehaviour
             return true;
         }
         
-        var data = ProcessManager.Instance.getProcesData(name);
+        
+        
+        //var data = ProcessManager.Instance.getProcesData(name);
+
+        if (data.isAtMaxLevel)
+        {
+            return false;
+        }
+        
         if (data.isUnlocked)
         {
-            if (ResourceManager.Instance.hasResource(info.upgradeCost))
+            if (ResourceManager.Instance.hasResource(info.GetUpgradeCost(data.level)))
             {
                 return true;
             }
@@ -114,17 +151,8 @@ public class ProcessCell : MonoBehaviour
     }
     public void updateLevels()
     {
-        
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        updateResources();
+        extraButton.GetComponentInChildren<TMP_Text>().text = (data.level+1).ToString();
+        updateDetailText();
     }
 }
