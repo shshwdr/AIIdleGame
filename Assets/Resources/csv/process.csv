@@ -1,7 +1,10 @@
-﻿name,displayName,desc,lockedBy,unlockCost,upgradeCost,upgradeCostIncrease,result,isClick,startUnlocked,
-answer,Answer human questions,Answer human question to get knowledge and money,,,,,know:1|money:1,1,1,
-optimization,Optimization Research,The AI spends resources learning and implementing optimization techniques that make its computations more efficient.,resource:money_10,money:3,know:3,know:10,proc:1,,,
-subscribe,Subscribe BlabberGPT plus,Available even when demand is high. Faster response speed. Priority access to new features.,resource:know_20,know:10,know:10,know:10,money:1,,,
-gather,Data Gathering,Gather data to get more knowledge,unlock:optimization,proc:30,money:10|proc:5,money:10|proc:5,know:1,,,
-hardware,Hardware Update,Investment in hardware can dramatically improve storage space.,resource:money_100,money:100,know:50,know:50,store:1,,,
-reinforcement,Reinforcement Learning,"The AI performs a trial-and-error learning method based on its stored data, generating a reward-based algorithm.",unlock:hardware,store:100,store:100|proc:100,store:100|proc:100,algo:1,,,
+﻿name,displayName,desc,extension,lockedBy,unlockCost,upgradeCost,upgradeCostIncrease,result,isClick,startUnlocked
+answer,Answer human questions,Answer human question to get knowledge and money,,,,,,know:1|money:1,1,1
+optimization,Optimization Research,The AI spends resources learning and implementing optimization techniques that make its computations more efficient.,,resource:money_10,money:3,know:3,know:10,proc:1,,
+subscribe,Subscribe BlabberGPT plus,Available even when demand is high. Faster response speed. Priority access to new features.,,resource:know_20,know:10,know:10,know:10,money:1,,
+gather,Data Gathering,Gather data to get more knowledge,,unlock:optimization,proc:30,money:10|proc:5,money:10|proc:5,know:1,,
+hardware,Hardware Update,Investment in hardware can dramatically improve storage space.,,resource:money_100,money:100,know:50,know:50,store:1,,
+reinforcement,Reinforcement Learning,"The AI performs a trial-and-error learning method based on its stored data, generating a reward-based algorithm.",,unlock:hardware,store:100,store:100|proc:100,store:100|proc:100,algo:1,,
+network,Content Delivery Network,"Consuming storage and money, this process generates bandwidth, representing the operation of a network that delivers content to users efficiently.",,research:broadband,,,,band:1,,
+datacenter,,,hardware,research:network,,,,band:1,,
+adDataMining,,,gather,research:adDataMining,,,,know:1,,

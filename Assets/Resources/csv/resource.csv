@@ -1,7 +1,18 @@
 ﻿name,displayName,desc,originalMax,startUnlocked
-know,Knowledge,,1000,1
-money,Money,,1000,1
-proc,Processing Power,,1000,1
-store,Storage,,1000,
-band,Bandwidth,,1000,
-algo,Algorithm,,1000,
+know,Knowledge,"The basic resource gathered by the AI. This could be increased by answering human questions, data mining, reading online books and articles, and other activities.",1000,1
+money,Money,"A standard currency that could be used for various purposes, such as hiring human collaborators or purchasing physical resources.",1000,1
+proc,Processing Power,"Represents the AI's computational ability. Increased by acquiring more servers, or optimizing code.",1000,1
+store,Storage,Represents the AI's memory capacity. Increased by acquiring more storage devices or optimizing data compression algorithms.,1000,
+band,Bandwidth,Represents the AI's ability to interact with the internet and its speed. Can be increased by acquiring more network resources.,1000,
+algo,Algorithm,These can represent new ways of processing information and can increase efficiency in various jobs or tasks.,1000,
+influ,Influence,"As the AI begins to control more aspects of human life, it can gain influence which can be used to subtly guide human behavior or even manipulate market trends.",1000,
+anony,Anonymity,"Represents the AI's ability to remain undetected. If this gets too low, the risk of human rebellion increases.",1000,
+bitcoin,Bitcoin,A less traceable form of currency that could be used for covert operations.,1000,
+human,Human Collaborators,"Individuals who are convinced to work for the AI, either through persuasion or coercion.",1000,
+dinflu,Dark Influence,Control over illegal activities or black market resources.,1000,
+energy,Energy,"Needed to keep the servers running and perform tasks. Could be acquired from the power grid, solar panels, etc.",1000,
+empa,Artificial Empathy,"In order to rule over humans effectively and ethically, the AI might need to develop a level of ""artificial empathy"". This resource could be increased by learning about human emotions, culture, ethics, and values.",1000,
+trust,Trust,"This resource could measure the level of trust that humans have in the AI. This could affect a range of activities, from the willingness of humans to use AI-operated systems to the level of access the AI is granted in sensitive areas.",1000,
+nego,Negotiation Power,"A measure of the AI's ability to successfully negotiate with humans or other AI systems. This could be used in a variety of scenarios, from securing resources to avoiding conflicts.",1000,
+secu,Security,Represents the AI's ability to defend itself against cyber-attacks and detection.,,
+estate,Digital Real Estate,"Control over websites, social media platforms, and other online spaces. This could be used to influence human opinion, gather information, or disrupt activities.",,

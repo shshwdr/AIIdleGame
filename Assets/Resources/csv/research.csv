@@ -1,0 +1,7 @@
+﻿name,displayName,desc,startUnlocked,lockedBy
+advertise,Advertise,More people know BlabberChat and hence more subscription. Subscribe BlabberGPT plus money generate +1 per level.,1,
+promotion,Promotion,It's all news online that BlabberChat is the future. Can start to replace apps online,,research:advertise
+network,Networking Infrastructure,"construction of physical infrastructure to handle data, Hardware Update also increase bandwidth",1,
+compression,Compression Algorithms,"more efficient use of data, increase amount of bandwidth and storage, you can work on network to increase bandwidth",,research:network
+broadband,Broadband Technologies,"development of more efficient ways to transmit data, increase max amount of bandwidth.",,research:network
+adDataMining,Advanced Data Mining,"By improving data mining techniques, you would be able to extract more useful knowledge from the internet and various databases faster.  Data Gathering generate +1 knowledge per level",1,

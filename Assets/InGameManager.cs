@@ -10,6 +10,7 @@ public class InGameManager : MonoBehaviour
         DataLoader.Instance.Init();
         ResourceManager.Instance.Init();
         ProcessManager.Instance.Init();
+        ResearchManager.Instance.Init();
     }
 
     // Update is called once per frame

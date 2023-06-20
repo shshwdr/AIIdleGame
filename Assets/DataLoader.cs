@@ -37,15 +37,23 @@ public class ProcessInfo:BaseInfo
     public int startUnlocked;
 
 }
+
+public class ResearchInfo : BaseInfo
+{
+    public int startUnlocked;
+    public Dictionary<string,string>  lockedBy;
+}
 public class DataLoader : Singleton<DataLoader>
 {
     public Dictionary<string, ResourceInfo> resourceDict = new Dictionary<string, ResourceInfo>();
     public Dictionary<string, ProcessInfo> processDict = new Dictionary<string, ProcessInfo>();
+    public Dictionary<string, ResearchInfo> researchDict = new Dictionary<string, ResearchInfo>();
     // Start is called before the first frame update
     public void Init()
     {
         var resourceInfos = CsvUtil.LoadObjects<ResourceInfo>("resource");
         var processInfos = CsvUtil.LoadObjects<ProcessInfo>("process");
+        var researchInfos = CsvUtil.LoadObjects<ResearchInfo>("research");
         foreach (var resource in resourceInfos)
         {
             resourceDict[resource.name] = resource;
@@ -53,6 +61,10 @@ public class DataLoader : Singleton<DataLoader>
         foreach (var resource in processInfos)
         {
             processDict[resource.name] = resource;
+        }
+        foreach (var resource in researchInfos)
+        {
+            researchDict[resource.name] = resource;
         }
     }
 
@@ -72,10 +84,13 @@ public class DataLoader : Singleton<DataLoader>
         }
         return processDict[name];
     }
-
-    // Update is called once per frame
-    void Update()
+    public ResearchInfo getResearchInfo(string name)
     {
-        
+        if (!researchDict.ContainsKey(name))
+        {
+            Debug.LogError("no research "+name);
+        }
+        return researchDict[name];
     }
+
 }
